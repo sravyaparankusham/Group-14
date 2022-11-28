@@ -24,11 +24,11 @@ class Faculty(models.Model):
 
 
 def student_directory_path(instance, filename): 
-    name,ext = filename.split(".")
+    name = filename.split(".")
     
     name = instance.registration_id # + "_" + instance.branch + "_" + instance.year + "_" + instance.section
     
-    filename = name + (".") + ext
+    filename = name + (".jpg") 
     return 'Student_Images/{}/{}/{}/{}'.format(instance.branch,instance.year,instance.section,filename)
 
 class Student(models.Model):
@@ -41,24 +41,15 @@ class Student(models.Model):
         ('MECH','MECH'),
         ('EEE','EEE'),
     )
-    YEAR = (
-        ('1','1'),
-        ('2','2'),
-        ('3','3'),
-        ('4','4'),
-    )
-    SECTION = (
-        ('A','A'),
-        ('B','B'),
-        ('C','C'),
-    )
+   
+   
+    
 
     firstname = models.CharField(max_length=200, null=True, blank=True)
     lastname = models.CharField(max_length=200, null=True, blank=True)
     registration_id = models.CharField(max_length=200, null=True)
     branch = models.CharField(max_length=100, null=True, choices=BRANCH)
-    year = models.CharField(max_length=100, null=True, choices=YEAR)
-    section = models.CharField(max_length=100, null=True, choices=SECTION)
+  
     profile_pic = models.ImageField(upload_to=student_directory_path ,null=True, blank=True)
 
 
@@ -73,8 +64,7 @@ class Attendence(models.Model):
     date = models.DateField(auto_now_add = True, null = True)
     time = models.TimeField(auto_now_add=True, null = True)
     branch = models.CharField(max_length=200, null = True)
-    year = models.CharField(max_length=200, null = True)
-    section = models.CharField(max_length=200, null = True)
+   
     period = models.CharField(max_length=200, null = True)
     status = models.CharField(max_length=200, null = True, default='Absent')
 
