@@ -17,7 +17,8 @@
                     <hr>
                     <h3 style="text-align: center">Student Profile Pic</h3>
                     <hr>
-                    <img class="img-responsive profile-pic" src="{{ student.profile_pic.url }}" >
+                    <!--<img class="img-responsive profile-pic" src="{{request.user.faculty.profile_pic.url}}" >-->
+                    <img class="img-responsive profile-pic" src="{{studentForm.profile_pic.url}}">
                 </div>
             </div>
             <div class="col-md-9">

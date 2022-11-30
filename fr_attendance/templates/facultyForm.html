@@ -1,4 +1,4 @@
-{%  extends 'attendence_sys/main.html' %}
+{%  extends 'main.html' %}
 {% block content %}
 
 <style>
@@ -18,8 +18,8 @@
 			<hr>
 			<h3 style="text-align: center">Faculty Profile Pic</h3>
 			<hr>
-			<img class="img-responsive profile-pic" src="{{request.user.faculty.profile_pic.url}}" >
-		
+			<!--<img class="img-responsive profile-pic" src="{{request.user.faculty.profile_pic.url}}" >-->
+		    <img class="img-responsive profile-pic" src="{{request.user.faculty.profile_pic.url}}">
 		</div>
 	</div>
 	<div class="col-md-9">

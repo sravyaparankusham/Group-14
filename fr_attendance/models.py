@@ -7,7 +7,7 @@ def user_directory_path(instance, filename):
     name = filename.split(".")
     
     name = instance.firstname + instance.lastname
-    filename = name + ".jpg"
+    filename = name + ".JPG"
     return 'Faculty_Images/{}'.format(filename)
 
 class Faculty(models.Model):
@@ -24,12 +24,12 @@ class Faculty(models.Model):
 
 
 def student_directory_path(instance, filename): 
-    name = filename.split(".")
+    #name = filename.split(".")
     
-    name = instance.registration_id # + "_" + instance.branch + "_" + instance.year + "_" + instance.section
+    name = instance.registration_id 
     
-    filename = name + (".jpg") 
-    return 'Student_Images/{}/{}/{}/{}'.format(instance.branch,instance.year,instance.section,filename)
+    filename = name + ".jpg" 
+    return 'Student_Images/{}/{}'.format(instance.branch,filename)
 
 class Student(models.Model):
 
@@ -57,8 +57,7 @@ class Student(models.Model):
         return str(self.registration_id)
 
 class Attendence(models.Model):
-    # faculty = models.ForeignKey(Faculty, null = True, on_delete= models.SET_NULL)
-    # student = models.ForeignKey(Student, null = True, on_delete= models.SET_NULL)
+    
     Faculty_Name = models.CharField(max_length=200, null=True, blank=True)
     Student_ID = models.CharField(max_length=200, null=True, blank=True)
     date = models.DateField(auto_now_add = True, null = True)
