@@ -1,11 +1,13 @@
+from audioop import reverse
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, StreamingHttpResponse
-
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-
+from django.shortcuts import (get_object_or_404,
+                              render,
+                              HttpResponseRedirect)
 from .forms import *
 from .models import Student, Attendence
 from .filters import AttendenceFilter
@@ -88,10 +90,10 @@ def updateStudent(request):
             if updateStudentForm.is_valid():
                 updateStudentForm.save()
                 messages.success(request, 'Updation Success')
-                return redirect('home')
+                return redirect('updateStudent')
         except:
             messages.error(request, 'Updation Unsucessfull')
-            return redirect('home')
+            return redirect('updateStudent')
     return render(request, 'student_update.html', context)
 
 
@@ -99,16 +101,17 @@ def updateStudent(request):
 def takeAttendence(request):
     if request.method == 'POST':
         details = {
-            'branch':request.POST['branch'],
-           
+            'courses':request.POST['courses'],
+            #'classname': request.POST['classname'],       
             'period':request.POST['period'],
             'faculty':request.user.faculty
             }
-        if Attendence.objects.filter(date = str(date.today()),branch = details['branch'],period = details['period']).count() != 0 :
+        if Attendence.objects.filter(date = str(date.today()),courses = details['courses'],period = details['period']).count() != 0 :
             messages.error(request, "Attendence already recorded.")
             return redirect('home')
         else:
-            students = Student.objects.filter(branch = details['branch'])
+            students = Student.objects.filter(courses = details['courses'])
+            
                                               
             names = Recognizer(details)
             for student in students:
@@ -116,7 +119,8 @@ def takeAttendence(request):
                     attendence = Attendence(Faculty_Name = request.user.faculty, 
                     Student_ID = str(student.registration_id), 
                     period = details['period'], 
-                    branch = details['branch'], 
+                    courses = details['courses'], 
+                    #classname = details['classname'],
                
                     
                     status = 'Present')
@@ -125,10 +129,13 @@ def takeAttendence(request):
                     attendence = Attendence(Faculty_Name = request.user.faculty, 
                     Student_ID = str(student.registration_id), 
                     period = details['period'],
-                    branch = details['branch'], 
+                    courses = details['courses'], 
+                    #classname = details['classname'],
+                    
+                    status = 'Absent'
                  )
                     attendence.save()
-            attendences = Attendence.objects.filter(date = str(date.today()),branch = details['branch'],period = details['period'])
+            attendences = Attendence.objects.filter(date = str(date.today()),courses = details['courses'],period = details['period'])
             context = {"attendences":attendences, "ta":True}
             messages.success(request, "Attendence taking Success")
             return render(request, 'attendence.html', context)        
@@ -150,32 +157,8 @@ def facultyProfile(request):
     return render(request, 'facultyForm.html', context)
 
 
-
-# class VideoCamera(object):
-#     def __init__(self):
-#         self.video = cv2.VideoCapture(0)
-#     def __del__(self):
-#         self.video.release()
-
-#     def get_frame(self):
-#         ret,image = self.video.read()
-#         ret,jpeg = cv2.imencode('.jpg',image)
-#         return jpeg.tobytes()
-
-
-# def gen(camera):
-#     while True:
-#         frame = camera.get_frame()
-#         yield(b'--frame\r\n'
-#         b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
-
-
-# @gzip.gzip_page
-# def videoFeed(request):
-#     try:
-#         return StreamingHttpResponse(gen(VideoCamera()),content_type="multipart/x-mixed-replace;boundary=frame")
-#     except:
-#         print("aborted")
-
-# def getVideo(request):
-#     return render(request, 'attendence_sys/videoFeed.html')
+def delete_attn(request, Student_ID):
+    member = Attendence.objects.get(Student_ID=Student_ID)
+    member.delete()
+    return redirect('home')
+ 

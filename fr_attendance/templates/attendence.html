@@ -38,7 +38,7 @@
 					<th>Branch</th>
 					
 					
-					<th>Period</th>
+					<th>courses</th>
 					<th>Status</th>
 				</tr>
 
@@ -48,8 +48,10 @@
                     <td>{{ attendence.Student_ID }}</td>
 					<td>{{ attendence.branch }}</td>
 					
-					<td>{{ attendence.period }}</td>
+					<td>{{ attendence.courses }}</td>
 					<td>{{ attendence.status }}</td>
+					<td><a href="{% url 'delete' Student_ID%}" class="btn btn-outline-danger btn-sm">delete</a></td>
+					
 				</tr>
 				{% endfor %}
 
@@ -68,7 +70,7 @@
 						<th>Branch</th>
 						
 						
-						<th>Period</th>
+						<th>courses</th>
 						<th>Status</th>
 					</tr>
 	
@@ -79,8 +81,9 @@
 						<td>{{ attendence.branch }}</td>
 						
 						
-						<td>{{ attendence.period }}</td>
+						<td>{{ attendence.courses }}</td>
 						<td>{{ attendence.status }}</td>
+						
 					</tr>
 					{% endfor %}
 	

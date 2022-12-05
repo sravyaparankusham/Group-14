@@ -7,7 +7,7 @@ def user_directory_path(instance, filename):
     name = filename.split(".")
     
     name = instance.firstname + instance.lastname
-    filename = name + ".JPG"
+    filename = name + ".jpg"
     return 'Faculty_Images/{}'.format(filename)
 
 class Faculty(models.Model):
@@ -15,7 +15,7 @@ class Faculty(models.Model):
     user = models.OneToOneField(User, null = True, blank = True, on_delete= models.CASCADE)
     firstname = models.CharField(max_length=200, null=True, blank=True)
     lastname = models.CharField(max_length=200, null=True, blank=True)
-    phone = models.CharField(max_length=200, null=True)
+   
     email = models.CharField(max_length=200, null=True)
     profile_pic = models.ImageField(upload_to=user_directory_path ,null=True, blank=True)
 
@@ -24,23 +24,34 @@ class Faculty(models.Model):
 
 
 def student_directory_path(instance, filename): 
-    #name = filename.split(".")
+    name = filename.split(".")
     
-    name = instance.registration_id 
+    name = instance.firstname + instance.registration_id 
     
     filename = name + ".jpg" 
-    return 'Student_Images/{}/{}'.format(instance.branch,filename)
+    return 'Student_Images/{}/{}'.format(instance.courses,filename)
 
 class Student(models.Model):
 
-    BRANCH = (
-        ('CSE','CSE'),
-        ('IT','IT'),
-        ('ECE','ECE'),
-        ('CHEM','CHEM'),
-        ('MECH','MECH'),
-        ('EEE','EEE'),
+    COURSES = (
+        ('CIS620','CIS620-Advanced Operating Systems'),
+        ('CIS524/424','CIS524/424-Programming Languages'),
+        ('CIS600 ','CIS600-Advanced Computer Architecture'),
+        ('CIS550/390','CIS550/390-Introduction to Algorithms'),
+        ('CIS530/430','CIS530/430-Database System and Processing'),
+        ('CIS636/EEC623','CIS636/EEC623-Software Quality Assurance'),
+        ('CIS634','CIS634-Object-Oriented Software Engineering')
+       
+       
+        
     )
+    
+    BRANCH = (
+        ('CIS','CIS'),
+        ('EEC','EEC')
+    )
+    
+    
    
    
     
@@ -48,8 +59,9 @@ class Student(models.Model):
     firstname = models.CharField(max_length=200, null=True, blank=True)
     lastname = models.CharField(max_length=200, null=True, blank=True)
     registration_id = models.CharField(max_length=200, null=True)
+    courses = models.CharField(max_length=100, null=True, choices=COURSES)
     branch = models.CharField(max_length=100, null=True, choices=BRANCH)
-  
+    #classname = models.CharField(max_length=200, null=True, blank=True)
     profile_pic = models.ImageField(upload_to=student_directory_path ,null=True, blank=True)
 
 
@@ -62,8 +74,9 @@ class Attendence(models.Model):
     Student_ID = models.CharField(max_length=200, null=True, blank=True)
     date = models.DateField(auto_now_add = True, null = True)
     time = models.TimeField(auto_now_add=True, null = True)
+    courses = models.CharField(max_length=200, null = True)
     branch = models.CharField(max_length=200, null = True)
-   
+    #classname = models.CharField(max_length=200, null=True, blank=True)
     period = models.CharField(max_length=200, null = True)
     status = models.CharField(max_length=200, null = True, default='Absent')
 

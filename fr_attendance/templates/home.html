@@ -20,15 +20,19 @@
                 <form class="form-horizontal" action="{% url 'attendence' %}" method="POST">
                     {% csrf_token %}
                     <div class="form-group">
-                        <label for="sel1">Select Branch:</label>
-                        <select name='branch' class="form-control" id="sel1">
-                            <option value="CSE">CSE</option>
-                            <option value="IT">IT</option>
-                            <option value="ECE">ECE</option>
-                            <option value="EEE">EEE</option>
-                            <option value="MECH">MECH</option>
-                            <option value="CHEM">CHEM</option>
-                            <option value="CIVIL">CIVIL</option>
+                        <label for="sel1">Select Courses:</label>
+                        <select name='courses' class="form-control" id="sel1">
+                            <option >----</option>
+                            <option value="CIS620">CIS620</option>
+                            <option value="CIS524/424">CIS524/424</option>
+                            <option value="CIS600">CIS600</option>
+                            <option value="CIS550/390">CIS550/390</option>
+                            <option value="CIS530/430">CIS530/430</option>
+                            <option value="CIS636/EEC623">CIS636/EEC623</option>
+                            <option value="CIS634">CIS634</option>
+                           
+                            
+                           
                         </select>
                     </div>
                    
@@ -79,6 +83,16 @@
                     <div class="row">
                         <div class="col-sm-4">
                             <div class="form-group">
+                                <label for="sel1">Select courses:</label>
+                                {{ studentForm.courses }}
+                            </div>
+                        </div>
+                        
+                        
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
                                 <label for="sel1">Select Branch:</label>
                                 {{ studentForm.branch }}
                             </div>
@@ -86,6 +100,8 @@
                         
                         
                     </div>
+                   
+                    
                     <div class="row">
                         <div class="col-md-3"></div>
                         <div class="col-md-6">
@@ -116,13 +132,10 @@
                     <div class="form-group">
                         <label for="sel1">Select Branch:</label>
                         <select name='branch' class="form-control" id="sel1">
-                            <option value="CSE">CSE</option>
-                            <option value="IT">IT</option>
-                            <option value="ECE">ECE</option>
-                            <option value="EEE">EEE</option>
-                            <option value="MECH">MECH</option>
-                            <option value="CHEM">CHEM</option>
-                            <option value="CIVIL">CIVIL</option>
+                            <option value="CIS">CIS</option>
+                           
+                            <option value="EEC">EEC</option>
+                            
                         </select>
                     </div>
                     <button type="submit" class="btn btn-block btn-info">Submit</button>
