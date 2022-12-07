@@ -118,6 +118,9 @@ def takeAttendence(request):
                 if str(student.registration_id) in names:
                     attendence = Attendence(Faculty_Name = request.user.faculty, 
                     Student_ID = str(student.registration_id), 
+                    firstname = str(student.firstname),
+                    lastname= str(student.lastname),
+                    branch = str(student.branch),
                     period = details['period'], 
                     courses = details['courses'], 
                    # branch = details['branch'],
@@ -131,6 +134,9 @@ def takeAttendence(request):
                 else:
                     attendence = Attendence(Faculty_Name = request.user.faculty, 
                     Student_ID = str(student.registration_id), 
+                    firstname = str(student.firstname),
+                    lastname= str(student.lastname),
+                    branch = str(student.branch),
                     period = details['period'],
                     courses = details['courses'], 
                     #classname = details['classname'],

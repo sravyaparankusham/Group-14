@@ -79,8 +79,8 @@ class Attendence(models.Model):
     #classname = models.CharField(max_length=200, null=True, blank=True)
     period = models.CharField(max_length=200, null = True)
     status = models.CharField(max_length=200, null = True, default='Absent')
-    #firstname = models.CharField(max_length=200, null=True, blank=True)
-   # lastname = models.CharField(max_length=200, null=True, blank=True)
+    firstname = models.CharField(max_length=200, null=True, blank=True)
+    lastname = models.CharField(max_length=200, null=True, blank=True)
 
     def __str__(self):
         return str(self.Student_ID + "_" + str(self.date)+ "_" + str(self.period))
