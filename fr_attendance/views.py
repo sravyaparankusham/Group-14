@@ -26,11 +26,11 @@ def home(request):
         studentForm = CreateStudentForm(data = request.POST, files=request.FILES)
         # print(request.POST)
         stat = False
-        try:
+        """ try:
             student = Student.objects.get(registration_id = request.POST['registration_id'])
             stat = True
         except:
-            stat = False
+            stat = False"""
         if studentForm.is_valid() and (stat == False):
             studentForm.save()
             name = studentForm.cleaned_data.get('firstname') +" " +studentForm.cleaned_data.get('lastname')
