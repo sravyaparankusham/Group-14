@@ -25,7 +25,7 @@ def home(request):
     if request.method == 'POST':
         studentForm = CreateStudentForm(data = request.POST, files=request.FILES)
         # print(request.POST)
-        stat = False 
+        stat = False
         try:
             student = Student.objects.get(registration_id = request.POST['registration_id'])
             stat = True
@@ -120,10 +120,13 @@ def takeAttendence(request):
                     Student_ID = str(student.registration_id), 
                     period = details['period'], 
                     courses = details['courses'], 
-                    #classname = details['classname'],
+                   # branch = details['branch'],
+                    #firstName = details['firstname'],
+                    #lastName=details['firstname'], 
                
                     
-                    status = 'Present')
+                    status = 'Present'
+                    )
                     attendence.save()
                 else:
                     attendence = Attendence(Faculty_Name = request.user.faculty, 
@@ -131,8 +134,12 @@ def takeAttendence(request):
                     period = details['period'],
                     courses = details['courses'], 
                     #classname = details['classname'],
+                   # branch = details['branch'],
+                    #firstName = details['firstname'],
+                    #lastName=details['firstname'], 
+               
                     
-                    status = 'Absent'
+                    #status = 'Absent'
                  )
                     attendence.save()
             attendences = Attendence.objects.filter(date = str(date.today()),courses = details['courses'],period = details['period'])
@@ -157,8 +164,8 @@ def facultyProfile(request):
     return render(request, 'facultyForm.html', context)
 
 
-def delete_attn(request, Student_ID):
-    member = Attendence.objects.get(Student_ID=Student_ID)
-    member.delete()
-    return redirect('home')
+#def delete_attn(request, Student_ID):
+   # member = Attendence.objects.get(Student_ID=Student_ID)
+  #  member.delete()
+  #  return redirect('home')
  

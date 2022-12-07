@@ -13,6 +13,6 @@ urlpatterns = [
     path('updateStudentRedirect/', views.updateStudentRedirect, name='updateStudentRedirect'),
     path('updateStudent/', views.updateStudent, name='updateStudent'),
     path('attendence/', views.takeAttendence, name='attendence'),
-    path('delete/<Student_ID>', views.delete_attn, name='delete'),
+   # path('delete/<Student_ID>', views.delete_attn, name='delete'),
    
 ]
